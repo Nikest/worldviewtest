@@ -1,0 +1,6 @@
+.title-elem {
+    font-family: var(--font-header);
+    font-size: var(--font-size-biggest);
+    color: var(--color-main);
+    padding: 5px 0;
+}

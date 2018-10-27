@@ -1,0 +1,42 @@
+.main-theme {
+    --font-main: 'Montserrat', sans-serif;
+    --font-header: 'Ubuntu', sans-serif;
+
+    --font-size-main: 12px;
+    --font-size-big: 14px;
+    --font-size-biggest: 16px;
+
+    --bg-01: #f6f6f6;
+    --bg-02: #2d2840;
+    --bg-light: #f3f2ff;
+    --bg-borders: #e5d4ff;
+
+    --color-main: #161616;
+    --color-theme-dark: #5c3671;
+}
+
+body {
+    width: 800px;
+    height: 760px;
+    margin: auto;
+    font-family: var(--font-main);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    color: inherit;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-weight: inherit;
+    box-sizing: border-box;
+}
+
+.content-title {
+    font-size: var(--font-size-big);
+}

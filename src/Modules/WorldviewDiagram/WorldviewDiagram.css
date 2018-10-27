@@ -1,0 +1,9 @@
+.worldview-diagram {
+    display: flex;
+    justify-content: center;
+}
+
+.main-canvas {
+    width: 500px;
+    height: 500px;
+}

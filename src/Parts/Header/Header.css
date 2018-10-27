@@ -1,0 +1,33 @@
+.header {
+    background: var(--bg-02);
+    padding: 10px;
+    color: #fff;
+}
+
+.header-title {
+    font-family: var(--font-header);
+    font-size: var(--font-size-big);
+}
+
+.header-descr {
+    font-family: var(--font-main);
+}
+
+.navigation {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-nav-button {
+    font-size: var(--font-size-main);
+    background: #665a91;
+    flex: 1 1 auto;
+    margin: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.header-nav-button:hover {
+    background: #6e619c;
+}

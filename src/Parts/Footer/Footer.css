@@ -1,0 +1,5 @@
+.footer {
+    height: 40px;
+    background: var(--bg-02);
+    padding: 10px;
+}
