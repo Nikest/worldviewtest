@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './QuestionnaireModule.css';
 
 import { questions } from '../../questions';
+//import questions from '../../d'
 import { Button, Title } from '../../Components';
 import { Question } from './Question';
 
@@ -22,19 +23,33 @@ export class QuestionnaireModule extends Component {
 
   questionCount = 0;
 
+  temp = {
+    x: 0,
+    y: 0,
+  };
+
   onAnswer = (data) => {
-    this.answersValue.x += data.x ? data.x : 0;
-    this.answersValue.y += data.y ? data.y : 0;
-    console.log(this.answersValue);
+    this.temp.x = data.x;
+    this.temp.y = data.y;
+    console.log(this.temp);
+  };
+
+  shift = (b) => {
+    let a = this.answersValue.x;
+    b = parseInt(b);
+    if (Number.isNaN(b)) return a;
+    a = (a === 0) ? b : a;
+    return Math.round((a + b) / 2)
   };
 
   onUnanswer = (data) => {
-    this.answersValue.x -= data.x ? data.x : 0;
-    this.answersValue.y -= data.y ? data.y : 0;
-    console.log(this.answersValue);
+
   };
 
   onNext = () => {
+    this.answersValue.x = this.shift(this.temp.x);
+    this.answersValue.y = this.shift(this.temp.y);
+    console.log('result: ', this.answersValue);
     this.questionCount += 1;
     this.questionCount !== questions.length ? this.viewQuestion(this.questionCount) : this.setResult();
   };
@@ -48,22 +63,22 @@ export class QuestionnaireModule extends Component {
   render() {
     const { question } = this.state;
     const buttonNextText = this.questionCount === questions.length - 1 ? 'Результат' : 'Далее';
-
     return (
       <article className={'questionnaire-module'}>
         <aside className={'questionnaire-module-main'}>
           { question && <div>
-            <Title>{question.question}</Title>
+            <Title>{question.title}</Title>
 
             {question.answers.map((answer, i) => {
+              const val = {x: answer.x, y: answer.y};
               return <Question
                 key={i + this.questionCount * 1000}
                 name={`answer-${this.questionCount}`}
                 onAnswer={this.onAnswer}
                 onUnanswer={this.onUnanswer}
-                title={answer.answer}
-                value={answer.value}
-                type={question.type === 'answer' ? 'radio' : 'checkbox'}/>
+                title={answer.text}
+                value={val}
+                type={question.multi ? 'checkbox' : 'radio' }/>
             })}
           </div> }
         </aside>
@@ -78,7 +93,7 @@ export class QuestionnaireModule extends Component {
     this.setState({
       question: questions[count],
     });
-  }
+  };
 
   componentDidMount() {
     this.viewQuestion(this.questionCount)
