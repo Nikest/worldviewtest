@@ -102,7 +102,7 @@ export class WorldviewDiagram extends Component {
     const cX = (semiSize * 2) - ((semiSize * 2) / aX) * (aX - rX);
     const cY = ((semiSize * 2) / aY) * (aY - rY);
 
-    context.fillStyle = '#000';
+    context.fillStyle = '#53446a';
     context.fillRect(cX, cY, 10, 10);
     context.font = `${this.fontSize - 3}px Ubuntu`;
     context.textAlign = 'center';
