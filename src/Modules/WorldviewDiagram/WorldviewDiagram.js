@@ -9,7 +9,7 @@ export class WorldviewDiagram extends Component {
   canvasHeight = 1000;
   fontSize = 19;
 
-  render() {
+  render() { console.log(summaryQuestionsValues.x);
     return (
       <article className={'worldview-diagram'}>
         <canvas ref={this.canvas} width={this.canvasWidth} height={this.canvasHeight} className={'main-canvas'}/>
@@ -66,7 +66,7 @@ export class WorldviewDiagram extends Component {
     });
 
     context.font = `${this.fontSize}px Montserrat`;
-    context.fillStyle = '#000';
+    context.fillStyle = '#000000';
 
     context.textAlign = 'center';
     context.fillText(this.axesTitle.top, semiSize, this.fontSize + 5);
@@ -85,18 +85,19 @@ export class WorldviewDiagram extends Component {
         this.drawValue(value, context, semiSize);
       });
     }
-  }
+  };
 
   componentDidMount() {
     this.reDraw();
   }
 
-  drawValue = (value, context, semiSize) => {
+  drawValue = (value, context, sSize) => {
+    const semiSize = sSize - 5;
     const aX = summaryQuestionsValues.x * 2;
-    const rX = value.x + summaryQuestionsValues.x;
+    const rX = (value.elitarism - value.egalitarism) + summaryQuestionsValues.x;
 
     const aY = summaryQuestionsValues.y * 2;
-    const rY = value.y + summaryQuestionsValues.y;
+    const rY = value.acceleration - value.neoluddism + summaryQuestionsValues.y;
 
     const cX = (semiSize * 2) - ((semiSize * 2) / aX) * (aX - rX);
     const cY = ((semiSize * 2) / aY) * (aY - rY);
@@ -106,7 +107,7 @@ export class WorldviewDiagram extends Component {
     context.font = `${this.fontSize - 3}px Ubuntu`;
     context.textAlign = 'center';
     context.fillText(value.text, cX, cY - (this.fontSize - 3));
-  }
+  };
 
   componentDidUpdate() {
     this.reDraw();

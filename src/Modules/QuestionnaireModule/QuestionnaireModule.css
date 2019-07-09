@@ -25,6 +25,7 @@
 .input-decorator {
     display: inline-block;
     width: 20px;
+    min-width: 20px;
     height: 20px;
     position: relative;
     border: 1px solid var(--bg-borders);

@@ -6,7 +6,7 @@ export class Question extends Component {
   onAnswer = (e) => {
     const { value, onAnswer, onUnanswer } = this.props;
     e.target.checked ? onAnswer(value) : onUnanswer(value);
-  }
+  };
 
   render() {
     const { title, type, name } = this.props;
