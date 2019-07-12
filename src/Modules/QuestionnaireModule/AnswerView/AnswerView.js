@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export class Question extends Component {
+export class AnswerView extends Component {
   input = React.createRef();
 
   onAnswer = (e) => {

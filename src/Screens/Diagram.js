@@ -9,65 +9,158 @@ export class Diagram extends Component {
 
   values = [
     {
-      text: 'Проект "Венера"',
-      x: -90,
-      y: 70,
-    },{
-      text: 'Социал-демократы',
-      x: -60,
-      y: -15,
-    },{
-      text: 'Техно-фашизм',
-      x: 90,
-      y: 90,
-    },{
-      text: 'Нацисты',
-      x: 80,
-      y: 0,
-    },{
-      text: 'Республиканцы',
-      x: 15,
-      y: -15,
-    },{
-      text: 'Зеленые',
-      x: -90,
-      y: -55,
-    },{
-      text: 'Сингуляристы',
-      x: -5,
-      y: 90,
-    },{
-      text: 'Амиши',
-      x: 15,
-      y: -75,
-    },{
-      text: 'Марксисты',
-      x: -90,
-      y: 5,
-    },{
-      text: 'Меритократия',
-      x: 20,
-      y: 25,
-    },{
-      text: 'Анархо-прмитивизм',
-      x: -90,
-      y: -90,
-    },{
-      text: 'Либертарианство',
-      x: -10,
-      y: 5,
-    },{
-      text: 'Классичский либерализм',
-      x: 5,
-      y: 8,
-    },{
-      text: 'Мир "Стар Трека"',
-      x: -80,
-      y: 75,
-    },{
-      text: 'Книга "Ложная слепота"',
-      x: 70,
-      y: 85,
+      data: {
+        result: {
+          text: 'Проект "Венера"',
+          elitarism: 0,
+          egalitarism: 16,
+          acceleration: 14,
+          neoluddism: 0,
+        }
+      }
+    },
+    {
+      data: {
+        result: {
+          text: 'Социал-демократы',
+          acceleration: 0,
+          neoluddism: 4,
+          elitarism: 0,
+          egalitarism: 9,
+        }
+      }
+    },
+    {
+      data: {
+        result: {
+          text: 'Техно-фашизм',
+          acceleration: 22,
+          neoluddism: 0,
+          elitarism: 18,
+          egalitarism: 0,
+        }
+      }
+    },
+    {
+      data: {
+        result: {
+          text: 'Нацисты',
+          acceleration: 3,
+          neoluddism: 0,
+          elitarism: 16,
+          egalitarism: 0,
+        }
+      }
+    },
+    {
+      data: {
+        result: {
+          text: 'Республиканцы',
+          acceleration: 0,
+          neoluddism: 2,
+          elitarism: 5,
+          egalitarism: 0,
+        }
+      }
+    },
+    {
+      data: {
+        result: {
+          text: 'Зеленые',
+          acceleration: 0,
+          neoluddism: 11,
+          elitarism: 0,
+          egalitarism: 14,
+        }
+      }
+    },
+    {
+      data: {
+        result: {
+          text: 'Сингуляристы',
+          acceleration: 20,
+          neoluddism: 0,
+          elitarism: 1,
+          egalitarism: 0,
+        }
+      }
+    },
+    {
+      data: {
+        result: {
+          text: 'Амиши',
+          acceleration: 0,
+          neoluddism: 21,
+          elitarism: 5,
+          egalitarism: 0,
+        }
+      }
+    },
+    {
+      data: {
+        result: {
+          text: 'Марксисты',
+          acceleration: 5,
+          neoluddism: 0,
+          elitarism: 0,
+          egalitarism: 15,
+        }
+      }
+    },
+    {
+      data: {
+        result: {
+          text: 'Меритократия',
+          acceleration: 9,
+          neoluddism: 0,
+          elitarism: 7,
+          egalitarism: 0,
+        }
+      }
+    },
+    {
+      data: {
+        result: {
+          text: 'Анархо-прмитивизм',
+          acceleration: 0,
+          neoluddism: 22,
+          elitarism: 0,
+          egalitarism: 18,
+        }
+      }
+    },
+    {
+      data: {
+        result: {
+          text: 'Либертарианство',
+          acceleration: 2,
+          neoluddism: 0,
+          elitarism: 2,
+          egalitarism: 0,
+        }
+      }
+    },
+    {
+      data: {
+        result: {
+          text: 'Мир "Стар Трека"',
+          acceleration: 17,
+          neoluddism: 0,
+          elitarism: 0,
+          egalitarism: 14,
+        }
+      }
+    },
+    {
+      data: {
+        result: {
+          text: 'Книга "Ложная слепота"',
+          acceleration: 18,
+          neoluddism: 0,
+          elitarism: 14,
+          egalitarism: 0,
+        }
+      }
     }
   ];
 

@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import './QuestionnaireModule.css';
-
+import { HandlerResults } from '../../Services';
 import { questions } from '../../questions';
-//import questions from '../../d'
 import { Button, Title } from '../../Components';
-import { Question } from './Question';
-
-import { store, eventService } from '../../Services';
+import { AnswerView } from './AnswerView';
 
 export class QuestionnaireModule extends Component {
   constructor(props) {
@@ -16,95 +13,101 @@ export class QuestionnaireModule extends Component {
     }
   }
 
-  answersValue = {
-    acceleration: 0,
-    neoluddism: 0,
-    elitarism: 0,
-    egalitarism: 0,
-  };
-
-  temp = {
-    acceleration: 0,
-    neoluddism: 0,
-    elitarism: 0,
-    egalitarism: 0,
-  };
-
+  userAnswersData = [];
   questionCount = 0;
+  currentAnswers = [];
 
-  onAnswer = (data) => {
-    const { question } = this.state;
-
-    if(question.multi) {
-      this.temp.acceleration += data.acceleration;
-      this.temp.neoluddism += data.neoluddism;
-      this.temp.elitarism += data.elitarism;
-      this.temp.egalitarism += data.egalitarism;
-    } else {
-      this.temp.acceleration = data.acceleration;
-      this.temp.neoluddism = data.neoluddism;
-      this.temp.elitarism = data.elitarism;
-      this.temp.egalitarism = data.egalitarism;
+  userAnswerDataUpdate = (questionHash, i, answers) => {
+    this.userAnswersData[i] = {
+      question: questionHash,
+      answers: answers
     }
-
-    console.log(data);
   };
 
-  onUnanswer = (data) => {
+  addAnswerResult = (answer) => {
+    this.currentAnswers.push(answer.hash);
+  };
 
+  removeAnswerResult = (answer) => {
+    this.currentAnswers = this.currentAnswers.filter(a => a.hash !== answer.hash);
+  };
+
+  onAnswer = (answer) => {
+    if(this.state.question.multi) {
+      this.addAnswerResult(answer);
+    } else {
+      if(this.currentAnswers.length > 0) this.removeAnswerResult({hash: this.currentAnswers[0].hash});
+      this.addAnswerResult(answer);
+    }
+  };
+
+  onUnanswer = (answer) => {
+    this.removeAnswerResult(answer);
   };
 
   onNext = () => {
-    this.answersValue.acceleration += this.temp.acceleration;
-    this.answersValue.neoluddism += this.temp.neoluddism;
-    this.answersValue.elitarism += this.temp.elitarism;
-    this.answersValue.egalitarism += this.temp.egalitarism;
+    this.userAnswerDataUpdate(this.state.question.hash, this.questionCount, this.currentAnswers);
 
-    console.log('result ',this.answersValue);
+    if((this.questionCount + 1) === questions.length) {
+      this.setResult();
+      return;
+    }
 
     this.questionCount += 1;
-    this.questionCount !== questions.length ? this.viewQuestion(this.questionCount) : this.setResult();
-
-    this.temp = {
-      acceleration: 0,
-      neoluddism: 0,
-      elitarism: 0,
-      egalitarism: 0,
-    }
+    this.viewQuestion(this.questionCount);
+    this.currentAnswers = [];
   };
 
   setResult = () => {
-    store.setToStore('result', this.answersValue);
-    eventService.emit('result');
-    eventService.emit('navigation.click', {screen: 'result'})
+    HandlerResults(this.userAnswersData);
+  };
+
+  arrayRandomize = (array) => {
+    let currentIndex = array.length, temporaryValue, randomIndex;
+
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      temporaryValue = array[currentIndex];
+
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
   };
 
   render() {
     const { question } = this.state;
     const buttonNextText = this.questionCount === questions.length - 1 ? 'Результат' : 'Далее';
+    if(!question) return null;
+    const answersArray = this.questionCount > 3 ? this.arrayRandomize(question.answers) : question.answers;
     return (
       <article className={'questionnaire-module'}>
         <aside className={'questionnaire-module-main'}>
           { question && <div>
-            <Title>{question.title}</Title>
+            <Title>{`Вопрос ${(this.questionCount + 1)} из ${questions.length}:`} <br/> {question.title}</Title>
 
-            {question.answers.map((answer, i) => {
-              const val = {
-                acceleration: answer.acceleration,
-                neoluddism: answer.neoluddism,
-                elitarism: answer.elitarism,
-                egalitarism: answer.egalitarism,
-              };
+            {
+              answersArray.map((answer, i) => {
+                const val = {
+                  hash: answer.hash,
+                  acceleration: answer.acceleration,
+                  neoluddism: answer.neoluddism,
+                  elitarism: answer.elitarism,
+                  egalitarism: answer.egalitarism,
+                };
 
-              return <Question
-                key={i + this.questionCount * 1000}
-                name={`answer-${this.questionCount}`}
-                onAnswer={this.onAnswer}
-                onUnanswer={this.onUnanswer}
-                title={answer.text}
-                value={val}
-                type={question.multi ? 'checkbox' : 'radio' }/>
-            })}
+                return <AnswerView
+                  key={i + this.questionCount * 1000}
+                  name={`answer-${this.questionCount}`}
+                  onAnswer={this.onAnswer}
+                  onUnanswer={this.onUnanswer}
+                  title={answer.text}
+                  value={val}
+                  type={question.multi ? 'checkbox' : 'radio' }/>
+              })
+            }
           </div> }
         </aside>
         <aside className={'questionnaire-module-footer'}>

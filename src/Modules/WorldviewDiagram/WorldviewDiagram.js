@@ -9,7 +9,7 @@ export class WorldviewDiagram extends Component {
   canvasHeight = 1000;
   fontSize = 19;
 
-  render() { console.log(summaryQuestionsValues.x);
+  render() {
     return (
       <article className={'worldview-diagram'}>
         <canvas ref={this.canvas} width={this.canvasWidth} height={this.canvasHeight} className={'main-canvas'}/>
@@ -82,7 +82,7 @@ export class WorldviewDiagram extends Component {
 
     if (this.props.values) {
       this.props.values.forEach(value => {
-        this.drawValue(value, context, semiSize);
+        this.drawValue(value.data.result, context, semiSize);
       });
     }
   };
@@ -102,11 +102,33 @@ export class WorldviewDiagram extends Component {
     const cX = (semiSize * 2) - ((semiSize * 2) / aX) * (aX - rX);
     const cY = ((semiSize * 2) / aY) * (aY - rY);
 
+    const xPosition = value.elitarism - value.egalitarism;
+    const xModule = Math.abs(xPosition);
+    let fontXposition = '';
+    if(xModule < 10) {
+      fontXposition = 'center';
+    } else {
+      if(xPosition < 0) {
+        fontXposition = 'left';
+      } else {
+        fontXposition = 'right';
+      }
+    }
+
+    const yPosition = value.acceleration - value.neoluddism;
+    let fontYposition = '';
+    if(yPosition < 0) {
+      fontYposition = cY - (this.fontSize - 3)
+    } else {
+      fontYposition = cY + (this.fontSize + 13)
+    }
+
     context.fillStyle = '#53446a';
     context.fillRect(cX, cY, 10, 10);
     context.font = `${this.fontSize - 3}px Ubuntu`;
-    context.textAlign = 'center';
-    context.fillText(value.text, cX, cY - (this.fontSize - 3));
+
+    context.textAlign = fontXposition;
+    context.fillText(value.text, cX, fontYposition);
   };
 
   componentDidUpdate() {
