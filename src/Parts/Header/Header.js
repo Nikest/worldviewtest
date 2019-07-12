@@ -21,6 +21,10 @@ export class Header extends Component {
       title: 'Координаты',
       data: {screen: 'diagram'},
     },
+    {
+      title: 'Токен',
+      data: {screen: 'token'},
+    },
   ];
 
   navResult = {
@@ -28,7 +32,7 @@ export class Header extends Component {
     data: {screen: 'result'},
   };
 
-  navClick = (nav) => {
+  navClick = (nav) => { console.log(nav);
     eventService.emit('navigation.click', nav.data)
   };
 

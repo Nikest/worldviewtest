@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Header, Footer, Main } from '../../Parts';
-import { About, Questionnaire, Diagram, Result } from '../../Screens';
+import { About, Questionnaire, Diagram, Result, TokenResult } from '../../Screens';
 
 export class PageModule extends Component {
   render() {
     const { viewData } = this.props;
 
     let screen = '';
-    
+
     switch (viewData) {
       case 'about':
         screen = <About/>;
@@ -18,13 +18,16 @@ export class PageModule extends Component {
       case 'diagram':
         screen = <Diagram/>;
         break;
+      case 'token':
+        screen = <TokenResult/>;
+        break;
       case 'result':
         screen = <Result/>;
         break;
       default:
         screen = <span>no content</span>;
     }
-
+    console.log(screen, viewData);
     return (
       <React.Fragment>
         <Header/>
