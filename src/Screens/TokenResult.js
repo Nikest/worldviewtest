@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Title } from '../Components';
 import { questions } from '../questions';
+import { WorldviewDiagram } from '../Modules';
 
 export class TokenResult extends Component {
     ref = React.createRef();
@@ -29,36 +30,18 @@ export class TokenResult extends Component {
 
     render() {
         const { data } = this.state;
-
-        let dataView = null;
-
-        if(data.length > 0) {
-            dataView = <div>
-                {
-                    questions.map((q, i) => {
-                        return (
-                            <div key={i} className={'question'}>
-                                <h2 className={'question-title'}>{i + 1}: {q.title}</h2>
-                                {
-                                    q.answers.map((a, i) => {
-                                        return (
-                                            <p key={i} className={'question-text'}>{a.text}</p>
-                                        )
-                                    })
-                                }
-                            </div>
-
-                        )
-                    })
-                }
-            </div>
-        }
+        console.log(data);
 
         return (
             <section className={'content-section'}>
                 <Title>Расшифровка токена</Title>
                 <textarea ref={this.ref} value={this.state.token} onInput={this.updateToken} className={'token-textarea'}/>
                 <button onClick={this.onDecode}>Расшифровать</button>
+
+                {
+                    data.answers && <WorldviewDiagram values={[{data}]}/>
+                }
+
                 <br/>
                 {
                     data && data.answers && data.answers.length >= 0 && <div>
@@ -93,7 +76,7 @@ export class TokenResult extends Component {
                         }
                     </div>
                 }
-                
+
             </section>
         );
     }
